@@ -10,3 +10,15 @@ let expenseEntries = [
   ["groceries", 28],
   ["subscriptions", 12],
 ];
+
+for (expense in expenseEntries){
+  totalExpensesValue =+ expenseEntries[expense][1];
+}
+
+function calculateAverageExpense(){
+  let totalAverage = totalExpensesValue / expenseEntries.length;
+}
+
+function calculateBalance(){
+  
+}
