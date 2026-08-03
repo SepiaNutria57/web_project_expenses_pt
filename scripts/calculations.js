@@ -13,12 +13,15 @@ let expenseEntries = [
 ];
 
 for (expense in expenseEntries) {
-  totalExpensesValue = +expenseEntries[expense][1];
+  totalExpensesValue += expenseEntries[expense][1];
 }
 
 function calculateAverageExpense() {
-  let totalAverage = totalExpensesValue / expenseEntries.length;
-  return totalAverage;
+  if (expenseEntries.length === 0) {
+    return 0;
+  }
+
+  return totalExpensesValue / expenseEntries.length;
 }
 
 function calculateBalance() {
@@ -26,28 +29,62 @@ function calculateBalance() {
   return totalBalance;
 }
 
+const balance = calculateBalance();
+
 function updateBalanceColor() {
-  if (totalBalance <= 0) {
+  const balance = calculateBalance();
+
+  if (balance < 0) {
     balanceColor = "red";
-  } else if (totalBalance < budgetValue * 0.25) {
+  } else if (balance < budgetValue * 0.25) {
     balanceColor = "orange";
+  } else {
+    balanceColor = "green";
   }
 }
 
-function calculateCategoryExpenses() {
-  //um for/while que pega o nome de uma categoria, checa todas as instâncias dela com um if e soma a despesa à um valor específico
-  //algo como: if expenseEntries[i][0] === category, total =+ expenseEntries[i][1]
+function calculateCategoryExpenses(category) {
+  let categoryTotal = 0;
 
-  let totalCategoryExpenses = 0;
-
-  for (const expense of expenseEntries) { //para cada despesa em expenseEntries
-    while (i < expenseEntries.length) { // e enquanto o índice for menor que o tamanho da lista
-      if (expenseEntries[i][0] === expense) { // se o nome da categoria da despesa for igual ao nome da categoria que estamos verificando
-         //o certo seria criar uma nova array aninhada...
-         //usar aquele método de array filter() para filtrar as despesas por categoria e depois somar os valores
-         //ou a
-      }
-      i++;
+  for (const expense of expenseEntries) {
+    if (expense[0] === category) {
+      categoryTotal += expense[1];
     }
   }
+
+  return categoryTotal;
+}
+
+function calculateLargestCategory() {
+  const categories = [
+    "groceries",
+    "restaurants",
+    "transport",
+    "home",
+    "subscriptions",
+  ];
+
+  const categoriesTotals = [];
+
+  for (const category of categories) {
+    categoriesTotals.push([category, calculateCategoryExpenses(category)]);
+  }
+
+  let largestCategory = categoriesTotals[0][0];
+  let largestValue = categoriesTotals[0][1];
+
+  for (const category of categoriesTotals) {
+    if (category[1] > largestValue) {
+      largestValue = category[1];
+      largestCategory = category[0];
+    }
+  }
+
+  return largestCategory;
+}
+
+function addExpenseEntry(entry) {
+  expenseEntries.push(entry);
+
+  totalExpensesValue += entry[1];
 }
