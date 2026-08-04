@@ -7,12 +7,12 @@ let expenseEntries = [
   ["restaurants", 50],
   ["transport", 12],
   ["home", 70],
-  ["subscriptions", 20],
+  ["subscriptions", 14],
   ["groceries", 28],
   ["subscriptions", 12],
 ];
 
-for (expense of expenseEntries) {
+for (const expense of expenseEntries) {
   totalExpensesValue += expenseEntries[expense][1];
 }
 
