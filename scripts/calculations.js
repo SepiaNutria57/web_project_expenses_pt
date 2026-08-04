@@ -1,4 +1,4 @@
-let budgetValue = 250;
+let budgetValue = 0;
 let totalExpensesValue = 0;
 let balanceColor = "green";
 
@@ -12,7 +12,7 @@ let expenseEntries = [
   ["subscriptions", 12],
 ];
 
-for (expense in expenseEntries) {
+for (expense of expenseEntries) {
   totalExpensesValue += expenseEntries[expense][1];
 }
 
@@ -28,8 +28,6 @@ function calculateBalance() {
   let totalBalance = budgetValue - totalExpensesValue;
   return totalBalance;
 }
-
-const balance = calculateBalance();
 
 function updateBalanceColor() {
   const balance = calculateBalance();
