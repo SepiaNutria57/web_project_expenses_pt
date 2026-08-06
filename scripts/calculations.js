@@ -13,7 +13,7 @@ let expenseEntries = [
 ];
 
 for (const expense of expenseEntries) {
-  totalExpensesValue += expenseEntries[expense][1];
+  totalExpensesValue += expense[1];
 }
 
 function calculateAverageExpense() {
@@ -30,11 +30,11 @@ function calculateBalance() {
 }
 
 function updateBalanceColor() {
-  const balance = calculateBalance();
+  const totalBalance = calculateBalance();
 
-  if (balance < 0) {
+  if (totalBalance < 0) {
     balanceColor = "red";
-  } else if (balance < budgetValue * 0.25) {
+  } else if (totalBalance < budgetValue * 0.25) {
     balanceColor = "orange";
   } else {
     balanceColor = "green";
@@ -83,6 +83,6 @@ function calculateLargestCategory() {
 
 function addExpenseEntry(entry) {
   expenseEntries.push(entry);
-
   totalExpensesValue += entry[1];
+  updateBalanceColor();
 }
